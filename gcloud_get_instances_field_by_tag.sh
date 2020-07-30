@@ -1,6 +1,14 @@
 #!/bin/bash
 
-# PROJECTID=projectid TAG=tagname FIELD=internal_ip ./gcloud_get_internal_instances_ip_by_tag.sh
+# [PROJECTID=projectid] [TAG=tagname] FIELD=internal_ip ./gcloud_get_internal_instances_ip_by_tag.sh
+
+if [ -n "$PROJECTID" ]; then
+    PROJECTOPS="--project ${PROJECTID}"
+fi
+
+if [ -n "$TAG" ]; then
+    TAGOPS="--filter='tags.items=${TAG}'"
+fi
 
 
 if [ "$FIELD" = "internal_ip" ]; then
@@ -11,4 +19,4 @@ if [ "$FIELD" = "instance_name" ]; then
     FORMAT="value(name)"
 fi
 
-gcloud --project ${PROJECTID} "--format=$FORMAT" compute instances list --filter="tags.items=${TAG}"
+gcloud ${PROJECTOPS} "--format=$FORMAT" compute instances list ${TAGOPS}
