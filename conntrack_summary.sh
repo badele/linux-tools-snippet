@@ -13,7 +13,7 @@ while true; do
     echo "$RESULT" | grep tcp | awk '{ print $4}' | sort | uniq -c | sort -n
 
     echo "== TCP dst=="
-    echo "$RESULT" | grep tcp | awk '{ print $6}' | sort | uniq -c | sort -n
+    echo "$RESULT" | grep tcp | awk '{ print $4 $5 $6}' | sort | uniq -c | sort -n
 
     echo "== UDP dst=="
     echo "$RESULT" | grep udp | awk '{ print $5}' | sort | uniq -c | sort -n
